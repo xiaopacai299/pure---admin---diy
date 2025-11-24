@@ -19,7 +19,8 @@
     "lint:stylelint": "stylelint --cache --fix \"**/*.{html,vue,css,scss}\" --cache-location node_modules/.cache/stylelint/",
     "lint": "pnpm lint:eslint && pnpm lint:prettier && pnpm lint:stylelint",
     "prepare": "husky",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "package": "rimraf staticSource && vite build --mode lib"
   },
   "keywords": [
     "pure-admin-thin",
@@ -68,6 +69,7 @@
     "qs": "^6.14.0",
     "responsive-storage": "^2.2.0",
     "sortablejs": "^1.15.6",
+    "static-source": "^1.0.0",
     "vue": "^3.5.22",
     "vue-router": "^4.6.3",
     "vue-tippy": "^6.7.1",

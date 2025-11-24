@@ -7,10 +7,12 @@ import { MotionPlugin } from "@vueuse/motion";
 import { createApp, type Directive } from "vue";
 import { useElementPlus } from "@/plugins/elementPlus";
 import { injectResponsiveStorage } from "@/utils/responsive";
-
+import staticSource from "static-source";
 import Table from "@pureadmin/table";
 // import PureDescriptions from "@pureadmin/descriptions";
 
+// 导入组件库样式
+import "static-source/staticSource.css";
 // 引入重置样式
 import "./style/reset.scss";
 // 导入公共样式
@@ -58,6 +60,8 @@ getPlatformConfig(app).then(async config => {
   await router.isReady();
   injectResponsiveStorage(app, config);
   app.use(MotionPlugin).use(useElementPlus).use(Table);
+  // 安装 static-source 插件
+  app.use(staticSource);
   // .use(PureDescriptions)
   // .use(useEcharts);
   app.mount("#app");

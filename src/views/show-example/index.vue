@@ -1,16 +1,15 @@
 <template>
   <div>
     <h1>showExample</h1>
-    <StaticSource filePath="static-example" fileName="preview" ext="jpg" />
-    123
-    <img :src="avatarSvg" alt="preview" height="100px" />
+    <!-- 使用全局注册的 StaticSource 组件 -->
+    <StaticSource filePath="static-example" fileName="preview" :height="200" />
   </div>
 </template>
 <script setup lang="ts">
-import StaticSource from "@/components/staticSource/index.vue";
-// 使用 ?url 后缀将 SVG 导入为 URL 字符串，用于 <img> 标签
-import avatarSvg from "@/assets/login/avatar.svg?url";
-
+// StaticSource 组件已在 main.ts 中全局注册，无需导入
+// 如果需要使用 getSum 方法，可以这样导入：
+// import { getSum } from "static-source";
+// console.log('555', getSum(5, 5));
 defineOptions({
   name: "ShowExample"
 });

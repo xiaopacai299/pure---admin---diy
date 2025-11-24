@@ -12,6 +12,38 @@ import {
 export default ({ mode }: ConfigEnv): UserConfigExport => {
   const { VITE_CDN, VITE_PORT, VITE_COMPRESSION, VITE_PUBLIC_PATH } =
     wrapperEnv(loadEnv(mode, root));
+
+  // 检测是否是库模式构建（通过 mode === 'lib' 来判断）
+  const isLibMode = mode === "lib";
+
+  if (isLibMode) {
+    // 库模式配置
+    return {
+      build: {
+        lib: {
+          entry: pathResolve("./src/package/index.js", import.meta.url),
+          name: "staticSource",
+          fileName: "staticSource",
+          formats: ["es", "umd"]
+        },
+        outDir: "staticSource",
+        rollupOptions: {
+          external: ["vue"],
+          output: {
+            globals: {
+              vue: "Vue"
+            }
+          }
+        }
+      },
+      resolve: {
+        alias
+      },
+      plugins: getPluginsList(VITE_CDN, VITE_COMPRESSION)
+    };
+  }
+
+  // 普通应用构建配置
   return {
     base: VITE_PUBLIC_PATH,
     root,
